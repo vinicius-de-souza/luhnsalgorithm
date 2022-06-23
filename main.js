@@ -21,33 +21,41 @@ const mystery5 = [4, 9, 1, 3, 5, 4, 0, 4, 6, 3, 0, 7, 2, 5, 2, 3]
 
 // An array of all the arrays above
 const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5]
+const nestedArray = [[4, 5, 3, 9, 6, 7, 7, 9, 0, 8, 0, 1, 6, 8, 0, 8], [4, 5, 3, 2, 7, 7, 8, 7, 7, 1, 0, 9, 1, 7, 9, 5]];
 
-
-// Add your functions below:
-
-const test = [4,5,3,9,6,8,9,8,8,7,7,0,5,7,9,8];
-
-const validateCred = (array) => {
+const validateCred = (arr)=>{ //Luhn's
+    let wArr = arr.slice().reverse();
     let sum = 0;
-    for(let i = array.length-1; i>=0; i--)
+    for(let i=0; i < wArr.length; i++)
     {
-        if(i%2 == 0) // even
-        {
-            if(array[i]*2 > 9)
-                sum += (array[i]*2) - 9;
-            else
-                sum += array[i] * 2;
+        if(i % 2 !==0){
+         wArr[i]*=2;
         }
-        else // odd
-            sum += array[i];
+        if (wArr[i]>9){
+         wArr[i]-=9;
+        }
+       sum+= wArr[i];
     }
-    return sum;
+    
+    if(sum % 10 === 0)
+        return true;
+    else
+        return false;
 }
 
-console.log(validateCred(valid1));
-console.log(validateCred(valid2));
-console.log(validateCred(valid3));
-console.log(validateCred(valid4));
-console.log(validateCred(valid5));
+const findInvalidCards = (nestedArray) =>{
+    let invalidArray = [];
+
+    for(let i = 0; i < nestedArray.length; i++)
+    {
+        if((validateCred(nestedArray[i]) == false))
+            invalidArray.push(nestedArray[i]);
+    }
+
+    return invalidArray;
+}
+
+
+console.log(findInvalidCards(nestedArray));
 
 
