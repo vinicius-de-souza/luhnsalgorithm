@@ -21,7 +21,7 @@ const mystery5 = [4, 9, 1, 3, 5, 4, 0, 4, 6, 3, 0, 7, 2, 5, 2, 3]
 
 // An array of all the arrays above
 const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5]
-const nestedArray = [[4, 5, 3, 9, 6, 7, 7, 9, 0, 8, 0, 1, 6, 8, 0, 8], [4, 5, 3, 2, 7, 7, 8, 7, 7, 1, 0, 9, 1, 7, 9, 5]];
+const nestedArray = [invalid1, invalid2, invalid3, invalid4, invalid5];
 
 const validateCred = (arr)=>{ //Luhn's
     let wArr = arr.slice().reverse();
@@ -44,6 +44,7 @@ const validateCred = (arr)=>{ //Luhn's
 }
 
 const findInvalidCards = (nestedArray) =>{
+    
     let invalidArray = [];
 
     for(let i = 0; i < nestedArray.length; i++)
@@ -55,7 +56,28 @@ const findInvalidCards = (nestedArray) =>{
     return invalidArray;
 }
 
+const idInvalidCardCompanies = (invalidArray) => {
+    
+    let companiesArray = [];
+    
+    for(let i = 0; i < invalidArray.length; i++){
+        if(invalidArray[i][0] === 4)
+            companiesArray.push('Visa');
+        else if(invalidArray[i][0] === 3)
+        companiesArray.push('Amex (American Express)');
+        else if(invalidArray[i][0] === 5)
+        companiesArray.push('Mastercard');
+        else if(invalidArray[i][0] === 6)
+        companiesArray.push('Discover');
+        else
+        companiesArray.push('Company not found');
+    }
 
-console.log(findInvalidCards(nestedArray));
+    return companiesArray = [...new Set(companiesArray)];
+}
+
+let invalidArray = findInvalidCards(nestedArray);
+
+console.log(idInvalidCardCompanies(invalidArray));
 
 
